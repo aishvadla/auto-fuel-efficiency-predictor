@@ -4,7 +4,7 @@ import sys
 import pandas as pd
 from dataclasses import dataclass
 from pathlib import Path
-from src.utils.logger import logging
+from src.utils.logger import logger
 from src.utils.exception import CustomException
 from sklearn.model_selection import train_test_split
 
@@ -27,7 +27,7 @@ class DataIngestion:
         self.random_state = random_state
 
     def initiate_data_ingestion(self):
-        logging.info("Initiated data ingestion")
+        logger.info("Initiated data ingestion")
         try:
             global DATA_SRC_URL
             column_names = [
@@ -48,12 +48,12 @@ class DataIngestion:
                 comment="\t",
                 skipinitialspace=True,
             )
-            logging.info("Read the dataset as Pandas dataframe")
+            logger.info("Read the dataset as Pandas dataframe")
             raw_data_path = Path(self.ingestion_config.raw_data_path).parent
             raw_data_path.mkdir(parents=True, exist_ok=True)
             df.to_csv(self.ingestion_config.raw_data_path, header=True)
 
-            logging.info("Train Test split initiated")
+            logger.info("Train Test split initiated")
             train_set, test_set = train_test_split(
                 df, test_size=self.test_size, random_state=self.random_state
             )
@@ -63,7 +63,7 @@ class DataIngestion:
             test_set.to_csv(
                 self.ingestion_config.test_data_path, index=False, header=True
             )
-            logging.info("Data Ingestion Completed. Files written to data/raw/*.csv")
+            logger.info("Data Ingestion Completed. Files written to data/raw/*.csv")
             return (
                 self.ingestion_config.train_data_path,
                 self.ingestion_config.test_data_path,
