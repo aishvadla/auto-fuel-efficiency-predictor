@@ -1,7 +1,7 @@
 [project]
 name = "auto-fuel-efficiency-predictor"
 version = "0.1.0"
-description = "Add your description here"
+description = "DNN Fuel efficiency Prediction"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -17,3 +17,9 @@ dev = [
     "pytest>=9.0.3",
     "ruff>=0.15.13",
 ]
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+line-length = 88
