@@ -29,7 +29,6 @@ class DataIngestion:
     def initiate_data_ingestion(self):
         logger.info("Initiated data ingestion")
         try:
-            global DATA_SRC_URL
             column_names = [
                 "MPG",
                 "Cylinders",
