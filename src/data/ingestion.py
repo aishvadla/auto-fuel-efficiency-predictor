@@ -17,12 +17,14 @@ DATA_SRC_URL = (
 class DataIngestionConfig:
     raw_data_path: str = Path("data") / "raw" / "auto-mpg.csv"
     train_data_path: str = Path("data") / "raw" / "train.csv"
+    val_data_path: str = Path("data") / "raw" / "val.csv"
     test_data_path: str = Path("data") / "raw" / "test.csv"
 
 
 class DataIngestion:
-    def __init__(self, test_size=0.2, random_state=23):
+    def __init__(self, val_size=0.15, test_size=0.15, random_state=23):
         self.ingestion_config = DataIngestionConfig()
+        self.val_size = val_size
         self.test_size = test_size
         self.random_state = random_state
 
@@ -53,11 +55,17 @@ class DataIngestion:
             df.to_csv(self.ingestion_config.raw_data_path, header=True)
 
             logger.info("Train Test split initiated")
-            train_set, test_set = train_test_split(
+            temp_set, test_set = train_test_split(
                 df, test_size=self.test_size, random_state=self.random_state
+            )
+            train_set, val_set = train_test_split(
+                temp_set, test_size=self.val_size, random_state=self.random_state
             )
             train_set.to_csv(
                 self.ingestion_config.train_data_path, index=False, header=True
+            )
+            val_set.to_csv(
+                self.ingestion_config.val_data_path, index=False, header=True
             )
             test_set.to_csv(
                 self.ingestion_config.test_data_path, index=False, header=True
@@ -65,6 +73,7 @@ class DataIngestion:
             logger.info("Data Ingestion Completed. Files written to data/raw/*.csv")
             return (
                 self.ingestion_config.train_data_path,
+                self.ingestion_config.val_data_path,
                 self.ingestion_config.test_data_path,
             )
         except Exception as e:

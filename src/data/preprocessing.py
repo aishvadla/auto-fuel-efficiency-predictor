@@ -20,10 +20,11 @@ class DataPreprocessing:
     def __init__(self):
         self.data_preprocessing_config = DataPreprocessingConfig()
 
-    def initiate_data_preprocessing(self, train_data_path, test_data_path):
+    def initiate_data_preprocessing(self, train_data_path, val_data_path, test_data_path):
         try:
             logger.info("Initiated Data Preprocessing")
             df_train = pd.read_csv(train_data_path)
+            df_val = pd.read_csv(val_data_path)
             df_test = pd.read_csv(test_data_path)
 
             # Identify numeric and categorical features and target
@@ -36,6 +37,8 @@ class DataPreprocessing:
 
             df_y_train = df_train[target_column]
             df_X_train = df_train.drop(columns=[target_column])
+            df_y_val = df_val[target_column]
+            df_X_val = df_val.drop(columns=[target_column])
             df_y_test = df_test[target_column]
             df_X_test = df_test.drop(columns=[target_column])
 
@@ -52,7 +55,8 @@ class DataPreprocessing:
             # fit and transform training data
             X_train_arr = preprocessing_pipeline.fit_transform(df_X_train)
 
-            # transform test data
+            # transform validation and test data
+            X_val_arr = preprocessing_pipeline.transform(df_X_val)
             X_test_arr = preprocessing_pipeline.transform(df_X_test)
 
             save_object(obj=preprocessing_pipeline,
@@ -60,6 +64,6 @@ class DataPreprocessing:
             logger.info("Saved preprocessing pipeline object")
             
             logger.info("Data Transformation Completed")
-            return (X_train_arr.astype('float32'), X_test_arr.astype('float32'), np.array(df_y_train).astype('float32'), np.array(df_y_test).astype('float32'))
+            return (X_train_arr.astype('float32'), X_val_arr.astype('float32'), X_test_arr.astype('float32'), np.array(df_y_train).astype('float32'), np.array(df_y_val).astype('float32'), np.array(df_y_test).astype('float32'))
         except Exception as e:
             raise CustomException(e, sys)
