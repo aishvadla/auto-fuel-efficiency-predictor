@@ -1,0 +1,14 @@
+model:
+  # input_features NOT here — computed dynamically
+  hidden_units: [8, 4]
+  output_features: 1  # design choice - always 1 for regression. For classification, compute from np.unique(y) data
+
+training:
+  epochs: 50
+  batch_size: 2
+  learning_rate: 0.01
+
+data:
+  test_size: 0.15
+  val_size: 0.15
+  random_state: 24

@@ -7,6 +7,7 @@ from pathlib import Path
 from src.utils.logger import logger
 from src.utils.exception import CustomException
 from sklearn.model_selection import train_test_split
+from src.utils.helper import load_config
 
 DATA_SRC_URL = (
     "http://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data"
@@ -19,14 +20,26 @@ class DataIngestionConfig:
     train_data_path: str = Path("data") / "raw" / "train.csv"
     val_data_path: str = Path("data") / "raw" / "val.csv"
     test_data_path: str = Path("data") / "raw" / "test.csv"
+    val_size: int | float = None
+    test_size: int | float = None
+    random_state: int = None
+
+    def __post_init__(self):
+        config = load_config()
+        if self.val_size is None:
+            self.val_size = config['data']['val_size']
+        if self.test_size is None:
+            self.test_size = config['data']['test_size']
+        if self.random_state is None:
+            self.random_state = config['data']['random_state']
 
 
 class DataIngestion:
-    def __init__(self, val_size=0.15, test_size=0.15, random_state=23):
-        self.ingestion_config = DataIngestionConfig()
-        self.val_size = val_size
-        self.test_size = test_size
-        self.random_state = random_state
+    def __init__(self, config:DataIngestionConfig=None):
+        if config is None:
+            self.ingestion_config = DataIngestionConfig()
+        else:
+            self.ingestion_config = config
 
     def initiate_data_ingestion(self):
         logger.info("Initiated data ingestion")
@@ -56,10 +69,10 @@ class DataIngestion:
 
             logger.info("Train Test split initiated")
             temp_set, test_set = train_test_split(
-                df, test_size=self.test_size, random_state=self.random_state
+                df, test_size=self.ingestion_config.test_size, random_state=self.ingestion_config.random_state
             )
             train_set, val_set = train_test_split(
-                temp_set, test_size=self.val_size, random_state=self.random_state
+                temp_set, test_size=self.ingestion_config.val_size, random_state=self.ingestion_config.random_state
             )
             train_set.to_csv(
                 self.ingestion_config.train_data_path, index=False, header=True

@@ -1,10 +1,12 @@
-from src.data.ingestion import DataIngestion
+from src.data.ingestion import DataIngestion, DataIngestionConfig
 
 
 def test_data_ingestion():
-    test_size = 0.3
-    random_state = 24
-    ingestion_obj = DataIngestion(test_size, random_state)
+    val_size = 0.1
+    test_size = 0.1
+    random_state = 35
+    config = DataIngestionConfig(val_size=val_size, test_size=test_size, random_state=random_state)
+    ingestion_obj = DataIngestion(config)
     train_data_path, val_data_path, test_data_path = ingestion_obj.initiate_data_ingestion()
 
     assert train_data_path.exists(), f"Train data file does not exist"

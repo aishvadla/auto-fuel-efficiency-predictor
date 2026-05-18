@@ -6,6 +6,8 @@ and other common utilities used across the training and prediction pipelines.
 
 import os
 import sys
+import yaml
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -65,3 +67,8 @@ def load_object(file_path):
             return joblib.load(file_obj)
     except Exception as e:
         raise CustomException(e, sys)
+    
+def load_config():
+    config_path = Path("configs") / "config.yaml"
+    with open(config_path) as f:
+        return yaml.safe_load(f)

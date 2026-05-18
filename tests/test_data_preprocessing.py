@@ -4,9 +4,7 @@ import numpy as np
 
 
 def test_data_preprocessing():
-    test_size = 0.3
-    random_state = 24
-    ingestion_obj = DataIngestion(test_size, random_state)
+    ingestion_obj = DataIngestion()
     preprocessing_obj = DataPreprocessing()
     train_data_path, val_data_path, test_data_path = ingestion_obj.initiate_data_ingestion()
     X_train_arr, X_val_arr, X_test_arr, y_train_arr, y_val_arr, y_test_arr = preprocessing_obj.initiate_data_preprocessing(train_data_path, val_data_path, test_data_path)
