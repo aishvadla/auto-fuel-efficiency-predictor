@@ -11,9 +11,7 @@ logger = logging.getLogger("fuel_efficiency")
 logger.setLevel(logging.INFO)
 
 file_handler = logging.FileHandler(LOG_FILE)
-formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(formatter)
 
 logger.addHandler(file_handler)

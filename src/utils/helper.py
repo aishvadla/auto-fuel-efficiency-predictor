@@ -67,7 +67,8 @@ def load_object(file_path):
             return joblib.load(file_obj)
     except Exception as e:
         raise CustomException(e, sys)
-    
+
+
 def load_config():
     config_path = Path("configs") / "config.yaml"
     with open(config_path) as f:

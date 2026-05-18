@@ -13,7 +13,7 @@ from src.models.model_registry import NeuralNet
 
 @dataclass
 class ModelTrainerConfig:
-    model_obj_file_path = Path("artifacts") / 'model.pth'
+    model_obj_file_path = Path("artifacts") / "model.pth"
 
 
 class ModelTrainer:
@@ -28,4 +28,3 @@ class ModelTrainer:
         train_dl = DataLoader(train_ds, batch_size=self.batch_size, shuffle=True)
 
         model = NeuralNet()
-        

@@ -27,15 +27,15 @@ class DataIngestionConfig:
     def __post_init__(self):
         config = load_config()
         if self.val_size is None:
-            self.val_size = config['data']['val_size']
+            self.val_size = config["data"]["val_size"]
         if self.test_size is None:
-            self.test_size = config['data']['test_size']
+            self.test_size = config["data"]["test_size"]
         if self.random_state is None:
-            self.random_state = config['data']['random_state']
+            self.random_state = config["data"]["random_state"]
 
 
 class DataIngestion:
-    def __init__(self, config:DataIngestionConfig=None):
+    def __init__(self, config: DataIngestionConfig = None):
         if config is None:
             self.ingestion_config = DataIngestionConfig()
         else:
@@ -69,10 +69,14 @@ class DataIngestion:
 
             logger.info("Train Test split initiated")
             temp_set, test_set = train_test_split(
-                df, test_size=self.ingestion_config.test_size, random_state=self.ingestion_config.random_state
+                df,
+                test_size=self.ingestion_config.test_size,
+                random_state=self.ingestion_config.random_state,
             )
             train_set, val_set = train_test_split(
-                temp_set, test_size=self.ingestion_config.val_size, random_state=self.ingestion_config.random_state
+                temp_set,
+                test_size=self.ingestion_config.val_size,
+                random_state=self.ingestion_config.random_state,
             )
             train_set.to_csv(
                 self.ingestion_config.train_data_path, index=False, header=True

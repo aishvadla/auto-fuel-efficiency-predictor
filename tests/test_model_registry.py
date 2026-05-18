@@ -1,6 +1,7 @@
 from src.models.model_registry import NeuralNet
 import torch
 
+
 def test_model_registry():
     input_features = 2
     hidden_units = [6, 3]
