@@ -15,6 +15,7 @@ import numpy as np
 @dataclass
 class DataPreprocessingConfig:
     preprocessor_obj_file_path = Path("artifacts") / "preprocessor.pkl"
+    scaler_y_obj_file_path = Path("artifacts") / "scaler_y.pkl"
 
 
 class DataPreprocessing:
@@ -91,20 +92,44 @@ class DataPreprocessing:
             X_val_arr = preprocessing_pipeline.transform(df_X_val)
             X_test_arr = preprocessing_pipeline.transform(df_X_test)
 
+            # Scale target
+            scaler_y = StandardScaler()
+            y_train_arr = (
+                scaler_y.fit_transform(df_y_train.values.reshape(-1, 1))
+                .flatten()
+                .astype("float32")
+            )
+            y_val_arr = (
+                scaler_y.transform(df_y_val.values.reshape(-1, 1))
+                .flatten()
+                .astype("float32")
+            )
+
+            y_test_arr = (
+                scaler_y.transform(df_y_test.values.reshape(-1, 1))
+                .flatten()
+                .astype("float32")
+            )
+
+            # save preprocessor objects
             save_object(
                 obj=preprocessing_pipeline,
                 file_path=self.data_preprocessing_config.preprocessor_obj_file_path,
             )
-            logger.info("Saved preprocessing pipeline object")
+            save_object(
+                obj=scaler_y,
+                file_path=self.data_preprocessing_config.scaler_y_obj_file_path,
+            )
+            logger.info("Saved preprocessing pipeline objects")
 
             logger.info("Data Transformation Completed")
             return (
                 X_train_arr.astype("float32"),
                 X_val_arr.astype("float32"),
                 X_test_arr.astype("float32"),
-                np.array(df_y_train).astype("float32"),
-                np.array(df_y_val).astype("float32"),
-                np.array(df_y_test).astype("float32"),
+                y_train_arr,
+                y_val_arr,
+                y_test_arr,
             )
         except Exception as e:
             raise CustomException(e, sys)

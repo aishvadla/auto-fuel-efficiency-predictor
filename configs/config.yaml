@@ -4,9 +4,10 @@ model:
   output_features: 1  # design choice - always 1 for regression. For classification, compute from np.unique(y) data
 
 training:
-  epochs: 50
-  batch_size: 2
-  learning_rate: 0.01
+  epochs: 100
+  log_epochs: 10
+  batch_size: 32
+  eta: 0.001
 
 data:
   test_size: 0.15
