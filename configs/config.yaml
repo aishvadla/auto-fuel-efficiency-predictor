@@ -7,7 +7,7 @@ training:
   epochs: 100
   log_epochs: 10
   batch_size: 32
-  eta: 0.001
+  eta: 0.005
 
 data:
   test_size: 0.15

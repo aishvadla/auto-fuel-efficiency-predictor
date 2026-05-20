@@ -12,6 +12,7 @@ def test_model_trainer():
     train_data_path, val_data_path, test_data_path = (
         ingestion_obj.initiate_data_ingestion()
     )
+    
     # Data preprocessing
     X_train_arr, X_val_arr, X_test_arr, y_train_arr, y_val_arr, y_test_arr = (
         preprocessing_obj.initiate_data_preprocessing(
