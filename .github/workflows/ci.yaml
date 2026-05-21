@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  CI_flow:
     runs-on: ubuntu-latest
 
     steps:

@@ -11,7 +11,7 @@ def test_prediction_pipeline():
         "Horsepower": 79.0,
         "Weight": 2625.0,
         "Acceleration": 18.6,
-        "Model Year": 82,
+        "ModelYear": 82,
         "Origin": 1,
     }
 
