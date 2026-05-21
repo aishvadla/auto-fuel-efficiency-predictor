@@ -3,22 +3,11 @@ from src.data.preprocessing import DataPreprocessing
 from src.models.train import ModelTrainer
 
 
-def test_model_trainer():
-    ingestion_obj = DataIngestion()
-    preprocessing_obj = DataPreprocessing()
+def test_model_trainer(pipeline_data):
     trainer = ModelTrainer()
-
-    # Data ingestion
-    train_data_path, val_data_path, test_data_path = (
-        ingestion_obj.initiate_data_ingestion()
-    )
     
-    # Data preprocessing
-    X_train_arr, X_val_arr, X_test_arr, y_train_arr, y_val_arr, y_test_arr = (
-        preprocessing_obj.initiate_data_preprocessing(
-            train_data_path, val_data_path, test_data_path
-        )
-    )
+    # Data ingestion and preprocessing
+    X_train_arr, X_val_arr, X_test_arr, y_train_arr, y_val_arr, y_test_arr = pipeline_data
     # Model training
     trainer_output = trainer.initiate_model_training(
         X_train_arr, X_val_arr, y_train_arr, y_val_arr

@@ -3,17 +3,8 @@ from src.data.preprocessing import DataPreprocessing
 import numpy as np
 
 
-def test_data_preprocessing():
-    ingestion_obj = DataIngestion()
-    preprocessing_obj = DataPreprocessing()
-    train_data_path, val_data_path, test_data_path = (
-        ingestion_obj.initiate_data_ingestion()
-    )
-    X_train_arr, X_val_arr, X_test_arr, y_train_arr, y_val_arr, y_test_arr = (
-        preprocessing_obj.initiate_data_preprocessing(
-            train_data_path, val_data_path, test_data_path
-        )
-    )
+def test_data_preprocessing(pipeline_data):
+    X_train_arr, X_val_arr, X_test_arr, y_train_arr, y_val_arr, y_test_arr = pipeline_data
 
     # Row count matches
     assert len(X_train_arr) == len(
