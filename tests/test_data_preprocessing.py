@@ -4,7 +4,9 @@ import numpy as np
 
 
 def test_data_preprocessing(pipeline_data):
-    X_train_arr, X_val_arr, X_test_arr, y_train_arr, y_val_arr, y_test_arr = pipeline_data
+    X_train_arr, X_val_arr, X_test_arr, y_train_arr, y_val_arr, y_test_arr = (
+        pipeline_data
+    )
 
     # Row count matches
     assert len(X_train_arr) == len(

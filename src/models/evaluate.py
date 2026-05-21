@@ -9,11 +9,13 @@ import json
 from pathlib import Path
 from src.utils.logger import logger
 
+
 @dataclass
 class ModelEvaluatorConfig:
     preprocessing_config = DataPreprocessingConfig()
     trainer_config = ModelTrainerConfig()
     metrics_path = Path("artifacts") / "metrics.json"
+
 
 class ModelEvaluator:
     def __init__(self):
@@ -44,7 +46,11 @@ class ModelEvaluator:
         r2 = r2_score(y_true, y_pred)
 
         logger.info("Saving the metrics data")
-        metrics = {'mse': round(mse, 4), 'mae':round(mae, 4), 'r2':round(float(r2), 4)}
+        metrics = {
+            "mse": round(mse, 4),
+            "mae": round(mae, 4),
+            "r2": round(float(r2), 4),
+        }
         self.config.metrics_path.parent.mkdir(parents=True, exist_ok=True)
         with open(self.config.metrics_path, "w") as f:
             json.dump(metrics, f, indent=4)

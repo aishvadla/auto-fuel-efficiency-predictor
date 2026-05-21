@@ -10,5 +10,5 @@ def test_model_trainer(pipeline_data):
     metrics = evaluator.initiate_model_evaluation(X_test, y_test)
     print(metrics)
 
-    assert metrics['r2'] > 0
-    assert metrics['mae'] > 0
+    assert metrics["r2"] > 0
+    assert metrics["mae"] > 0

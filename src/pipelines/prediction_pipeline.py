@@ -5,6 +5,7 @@ from src.utils.helper import load_object
 import torch
 import pandas as pd
 
+
 class PredictionPipeline:
     def __init__(self):
         self.preprocessing_config = DataPreprocessingConfig()
@@ -28,6 +29,10 @@ class PredictionPipeline:
 
         model.eval()
         with torch.no_grad():
-            pred_scaled = model(torch.from_numpy(features_transformed.astype('float32'))).numpy().flatten()
+            pred_scaled = (
+                model(torch.from_numpy(features_transformed.astype("float32")))
+                .numpy()
+                .flatten()
+            )
         pred = scaler_y.inverse_transform(pred_scaled.reshape(-1, 1)).flatten()[0]
         return float(pred)

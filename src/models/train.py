@@ -56,7 +56,7 @@ class ModelTrainer:
         train_dl = DataLoader(
             train_ds, batch_size=self.trainer_config.batch_size, shuffle=True
         )
-        
+
         model = NeuralNet(
             X_train.shape[1],
             self.trainer_config.hidden_units,
@@ -100,6 +100,8 @@ class ModelTrainer:
                 print(
                     f"Epoch {epoch}: train_loss: {loss_hist_train[epoch]:.4f} train_r2: {r2_score_hist_train[epoch]:.4f} val_loss: {loss_hist_val[epoch]:.4f} val_r2: {r2_score_hist_val[epoch]:.4f}"
                 )
-        print(f"Final epoch {epoch}: train_loss: {loss_hist_train[epoch]:.4f} train_r2: {r2_score_hist_train[epoch]:.4f} val_loss: {loss_hist_val[epoch]:.4f} val_r2: {r2_score_hist_val[epoch]:.4f}")
+        print(
+            f"Final epoch {epoch}: train_loss: {loss_hist_train[epoch]:.4f} train_r2: {r2_score_hist_train[epoch]:.4f} val_loss: {loss_hist_val[epoch]:.4f} val_r2: {r2_score_hist_val[epoch]:.4f}"
+        )
         torch.save(model.state_dict(), self.trainer_config.model_obj_file_path)
         return (loss_hist_train, r2_score_hist_train, loss_hist_val, r2_score_hist_val)
