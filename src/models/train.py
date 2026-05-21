@@ -56,7 +56,7 @@ class ModelTrainer:
         train_dl = DataLoader(
             train_ds, batch_size=self.trainer_config.batch_size, shuffle=True
         )
-
+        
         model = NeuralNet(
             X_train.shape[1],
             self.trainer_config.hidden_units,
