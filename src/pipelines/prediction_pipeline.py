@@ -14,6 +14,7 @@ import pandas as pd
 
 class PredictionPipeline:
     """Encapsulate inference logic for model predictions."""
+
     def __init__(self):
         self.preprocessing_config = DataPreprocessingConfig()
         self.trainer_config = ModelTrainerConfig()

@@ -13,6 +13,7 @@ from src.utils.logger import logger
 
 class TrainPipeline:
     """Orchestrate the end-to-end model training and evaluation workflow."""
+
     def __init__(self):
         self.ingestion_obj = DataIngestion()
         self.preprocessor_obj = DataPreprocessing()

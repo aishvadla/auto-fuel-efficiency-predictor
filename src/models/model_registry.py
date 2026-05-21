@@ -10,6 +10,7 @@ from typing import List
 
 class NeuralNet(nn.Module):
     """Feed-forward neural network with configurable hidden layers."""
+
     def __init__(self, input_features: int, hidden_units: List, output_features: int):
         super().__init__()
         all_layers = []
