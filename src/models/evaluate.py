@@ -42,7 +42,6 @@ class ModelEvaluator:
         mse = mean_squared_error(y_true, y_pred)
         mae = mean_absolute_error(y_true, y_pred)
         r2 = r2_score(y_true, y_pred)
-        print(f"Final Test Set Eval: MSE={mse:.4f}   MAE={mae:.4f}   r2_score={r2:.4f}")
 
         logger.info("Saving the metrics data")
         metrics = {'mse': round(mse, 4), 'mae':round(mae, 4), 'r2':round(float(r2), 4)}
