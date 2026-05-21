@@ -15,6 +15,7 @@ class PredictionPipeline:
         scaler_y = load_object(self.preprocessing_config.scaler_y_obj_file_path)
         state_dict = torch.load(self.trainer_config.model_obj_file_path)
 
+        features["Model Year"] = features.pop("ModelYear")
         features_df = pd.DataFrame([features])
         features_transformed = preprocessor.transform(features_df)
         model = NeuralNet(
