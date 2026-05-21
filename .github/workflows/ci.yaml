@@ -28,5 +28,8 @@ jobs:
       - name: Check formatting with black
         run: black --check src/ tests/
       
+      - name: Train model
+        run: python main.py
+
       - name: Run tests
         run: pytest tests/ -v

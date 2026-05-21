@@ -3,7 +3,7 @@ from src.data.preprocessing import DataPreprocessing
 from src.models.evaluate import ModelEvaluator
 
 
-def test_model_trainer(pipeline_data):
+def test_model_evaluator(pipeline_data):
     evaluator = ModelEvaluator()
 
     X_train, X_val, X_test, y_train, y_val, y_test = pipeline_data
