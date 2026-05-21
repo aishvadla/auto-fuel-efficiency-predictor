@@ -1,6 +1,7 @@
-![CI](https://github.com/aishvadla/auto-fuel-efficiency-predictor/actions/workflows/ci.yaml/badge.svg)
 
 # Auto Fuel Efficiency Predictor
+
+![CI](https://github.com/aishvadla/auto-fuel-efficiency-predictor/actions/workflows/ci.yaml/badge.svg)
 
 A **production-grade ML pipeline** that predicts vehicle fuel efficiency (MPG) using a Deep Neural Network — built with engineering best practices including modular architecture, config-driven training, artifact management, REST API serving, and CI/CD.
 
