@@ -70,6 +70,11 @@ def load_object(file_path):
 
 
 def load_config():
+    """Load the YAML configuration file.
+
+    Returns:
+        dict: Parsed configuration values from configs/config.yaml.
+    """
     config_path = Path("configs") / "config.yaml"
     with open(config_path) as f:
         return yaml.safe_load(f)

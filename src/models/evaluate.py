@@ -1,3 +1,9 @@
+"""Model evaluation utilities for the auto fuel efficiency pipeline.
+
+This module loads the saved model and preprocessing artifacts, evaluates
+performance on the test dataset, and writes metrics to disk.
+"""
+
 from dataclasses import dataclass
 from src.data.preprocessing import DataPreprocessingConfig
 from src.models.train import ModelTrainerConfig
@@ -12,16 +18,35 @@ from src.utils.logger import logger
 
 @dataclass
 class ModelEvaluatorConfig:
+    """Configuration for evaluation artifact locations."""
+
     preprocessing_config = DataPreprocessingConfig()
     trainer_config = ModelTrainerConfig()
     metrics_path = Path("artifacts") / "metrics.json"
 
 
 class ModelEvaluator:
+    """Evaluate a trained model on the held-out test dataset."""
+
     def __init__(self):
+        """Initialize the evaluator with configuration."""
         self.config = ModelEvaluatorConfig()
 
     def initiate_model_evaluation(self, X_test, y_test):
+        """Evaluate the model and persist metrics.
+
+        Parameters
+        ----------
+        X_test : np.ndarray
+            Test features.
+        y_test : np.ndarray
+            Test target values.
+
+        Returns
+        -------
+        dict
+            Dictionary containing mse, mae, and r2 metrics.
+        """
         logger.info("Initiated model evaluation on test set")
         scaler_y = load_object(self.config.preprocessing_config.scaler_y_obj_file_path)
         state_dict = torch.load(self.config.trainer_config.model_obj_file_path)

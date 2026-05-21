@@ -1,4 +1,5 @@
-# tests/test_prediction_pipeline.py
+"""Tests for the end-to-end prediction pipeline."""
+
 from src.pipelines.prediction_pipeline import PredictionPipeline
 
 

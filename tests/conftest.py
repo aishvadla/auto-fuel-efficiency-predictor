@@ -1,3 +1,5 @@
+"""PyTest fixture definitions for end-to-end pipeline testing."""
+
 import pytest
 from src.data.ingestion import DataIngestion
 from src.data.preprocessing import DataPreprocessing

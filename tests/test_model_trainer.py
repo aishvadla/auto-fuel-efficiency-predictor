@@ -1,3 +1,5 @@
+"""Tests for model trainer and training artifacts."""
+
 from src.data.ingestion import DataIngestion
 from src.data.preprocessing import DataPreprocessing
 from src.models.train import ModelTrainer

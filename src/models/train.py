@@ -1,8 +1,8 @@
-# 1. take inputs from the datapreprocessing module
-# 2. Convert to torch tensors, dataset and dataloaders
-# 3. Initialize model
-# 4. Training loop with validation loss per epoch
-# 5. save model to artifacts
+"""Model training utilities for the auto fuel efficiency project.
+
+This module converts preprocessing outputs into PyTorch datasets,
+trains the neural network, and saves the trained model weights.
+"""
 
 import torch
 import torch.nn as nn
@@ -17,6 +17,8 @@ from torchmetrics.regression import R2Score
 
 @dataclass
 class ModelTrainerConfig:
+    """Configuration for model training parameters and artifact paths."""
+
     model_obj_file_path = Path("artifacts") / "model.pth"
     epochs: int = None
     log_epochs: int = None
@@ -43,13 +45,34 @@ class ModelTrainerConfig:
 
 
 class ModelTrainer:
+    """Train a neural network model using the prepared dataset."""
+
     def __init__(self, config: ModelTrainerConfig = None):
+        """Initialize training workflow with configuration."""
         if config is None:
             self.trainer_config = ModelTrainerConfig()
         else:
             self.trainer_config = config
 
     def initiate_model_training(self, X_train, X_val, y_train, y_val):
+        """Train the model and save the trained state dictionary.
+
+        Parameters
+        ----------
+        X_train : np.ndarray
+            Training features.
+        X_val : np.ndarray
+            Validation features.
+        y_train : np.ndarray
+            Training targets.
+        y_val : np.ndarray
+            Validation targets.
+
+        Returns
+        -------
+        tuple[list[float], list[float], list[float], list[float]]
+            Training and validation loss and R2 score histories.
+        """
         train_ds = TensorDataset(torch.from_numpy(X_train), torch.from_numpy(y_train))
         X_val = torch.from_numpy(X_val)
         y_val = torch.from_numpy(y_val)

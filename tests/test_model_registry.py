@@ -1,3 +1,5 @@
+"""Tests for the neural network registry and forward pass."""
+
 from src.models.model_registry import NeuralNet
 import torch
 

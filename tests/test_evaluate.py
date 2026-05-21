@@ -1,3 +1,5 @@
+"""Tests for model evaluation and metrics output."""
+
 from src.data.ingestion import DataIngestion
 from src.data.preprocessing import DataPreprocessing
 from src.models.evaluate import ModelEvaluator

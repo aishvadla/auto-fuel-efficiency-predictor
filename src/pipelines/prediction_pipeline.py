@@ -1,3 +1,9 @@
+"""Prediction pipeline for serving MPG estimates.
+
+This module loads preprocessing and model artifacts to produce a single
+point prediction from input feature values.
+"""
+
 from src.models.model_registry import NeuralNet
 from src.data.preprocessing import DataPreprocessingConfig
 from src.models.train import ModelTrainerConfig
@@ -7,11 +13,24 @@ import pandas as pd
 
 
 class PredictionPipeline:
+    """Encapsulate inference logic for model predictions."""
     def __init__(self):
         self.preprocessing_config = DataPreprocessingConfig()
         self.trainer_config = ModelTrainerConfig()
 
     def predict(self, features: dict) -> float:
+        """Predict MPG value for a single car feature dictionary.
+
+        Parameters
+        ----------
+        features : dict
+            Feature values keyed by input field names.
+
+        Returns
+        -------
+        float
+            Predicted MPG value.
+        """
         preprocessor = load_object(self.preprocessing_config.preprocessor_obj_file_path)
         scaler_y = load_object(self.preprocessing_config.scaler_y_obj_file_path)
         state_dict = torch.load(self.trainer_config.model_obj_file_path)

@@ -1,3 +1,5 @@
+"""Tests for the data preprocessing workflow."""
+
 from src.data.ingestion import DataIngestion
 from src.data.preprocessing import DataPreprocessing
 import numpy as np

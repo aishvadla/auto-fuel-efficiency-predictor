@@ -1,3 +1,9 @@
+"""Training pipeline orchestration for the project.
+
+This module connects data ingestion, preprocessing, model training,
+and model evaluation into a single end-to-end pipeline.
+"""
+
 from src.data.ingestion import DataIngestion
 from src.data.preprocessing import DataPreprocessing
 from src.models.train import ModelTrainer
@@ -6,6 +12,7 @@ from src.utils.logger import logger
 
 
 class TrainPipeline:
+    """Orchestrate the end-to-end model training and evaluation workflow."""
     def __init__(self):
         self.ingestion_obj = DataIngestion()
         self.preprocessor_obj = DataPreprocessing()
@@ -13,6 +20,11 @@ class TrainPipeline:
         self.evaluator_obj = ModelEvaluator()
 
     def train(self):
+        """Run the full training pipeline from ingestion through evaluation.
+
+        Returns:
+            dict: Final evaluation metrics produced by the model evaluator.
+        """
         logger.info("Starting training pipeline")
 
         # Stage 1 — ingestion

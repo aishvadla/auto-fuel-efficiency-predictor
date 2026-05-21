@@ -1,4 +1,8 @@
-# Using the dataset from https://archive.ics.uci.edu/dataset/9/auto+mpg
+"""Data ingestion utilities for the auto fuel efficiency pipeline.
+
+This module downloads the UCI Auto MPG dataset, writes raw CSV files,
+and performs train/validation/test splits.
+"""
 
 import sys
 import pandas as pd
@@ -16,6 +20,8 @@ DATA_SRC_URL = (
 
 @dataclass
 class DataIngestionConfig:
+    """Configuration for data ingestion paths and split sizes."""
+
     raw_data_path: str = Path("data") / "raw" / "auto-mpg.csv"
     train_data_path: str = Path("data") / "raw" / "train.csv"
     val_data_path: str = Path("data") / "raw" / "val.csv"
@@ -35,13 +41,21 @@ class DataIngestionConfig:
 
 
 class DataIngestion:
+    """Ingest raw auto MPG data and produce training, validation, and test splits."""
+
     def __init__(self, config: DataIngestionConfig = None):
+        """Initialize the ingestion workflow with a configuration object."""
         if config is None:
             self.ingestion_config = DataIngestionConfig()
         else:
             self.ingestion_config = config
 
     def initiate_data_ingestion(self):
+        """Download the dataset, save raw CSV, and create train/val/test splits.
+
+        Returns:
+            tuple[str, str, str]: Paths to the train, validation, and test CSV files.
+        """
         logger.info("Initiated data ingestion")
         try:
             column_names = [

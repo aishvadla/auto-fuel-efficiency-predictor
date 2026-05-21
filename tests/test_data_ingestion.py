@@ -1,3 +1,5 @@
+"""Tests for the data ingestion workflow."""
+
 from src.data.ingestion import DataIngestion, DataIngestionConfig
 
 

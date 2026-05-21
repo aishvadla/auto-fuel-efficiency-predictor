@@ -1,3 +1,9 @@
+"""Data preprocessing module for the auto fuel efficiency pipeline.
+
+This module defines preprocessing logic for numeric and categorical
+features and persists the preprocessor artifacts for later prediction.
+"""
+
 from pathlib import Path
 from src.utils.logger import logger
 from src.utils.exception import CustomException
@@ -14,17 +20,38 @@ import numpy as np
 
 @dataclass
 class DataPreprocessingConfig:
+    """Configuration for preprocessing artifact file paths."""
+
     preprocessor_obj_file_path = Path("artifacts") / "preprocessor.pkl"
     scaler_y_obj_file_path = Path("artifacts") / "scaler_y.pkl"
 
 
 class DataPreprocessing:
+    """Create preprocessing pipelines and transform raw datasets."""
+
     def __init__(self):
+        """Initialize preprocessing configuration."""
         self.data_preprocessing_config = DataPreprocessingConfig()
 
     def initiate_data_preprocessing(
         self, train_data_path, val_data_path, test_data_path
     ):
+        """Load datasets, create feature pipelines, and transform all splits.
+
+        Parameters
+        ----------
+        train_data_path : str | Path
+            Path to the training CSV file.
+        val_data_path : str | Path
+            Path to the validation CSV file.
+        test_data_path : str | Path
+            Path to the test CSV file.
+
+        Returns
+        -------
+        tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+            Transformed training, validation, and test features and targets.
+        """
         try:
             logger.info("Initiated Data Preprocessing")
             df_train = pd.read_csv(train_data_path)
